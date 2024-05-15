@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BetterWorld - Nonprofit Organization Registration</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Include the navigation menu -->
+    <div id="navigation-placeholder"></div>
+
+    <main>
+        <section class="org-register-section">
+            <h1>Register Your Organization</h1>
+            <form>
+                <div>
+                    <label for="org-name">Organization Name</label>
+                    <input type="text" id="org-name" name="org-name" required>
+                </div>
+                <div>
+                    <label for="org-email">Email</label>
+                    <input type="email" id="org-email" name="org-email" required>
+                </div>
+                <div>
+                    <label for="org-password">Password</label>
+                    <input type="password" id="org-password" name="org-password" required>
+                </div>
+                <div>
+                    <label for="org-confirm-password">Confirm Password</label>
+                    <input type="password" id="org-confirm-password" name="org-confirm-password" required>
+                </div>
+                <button type="submit">Register</button>
+            </form>
+            <p>Already have an account? <a href="org-login.html">Login</a> | <a href="login.html">User Login</a></p>
+        </section>
+    </main>
+
+    <footer>
+        <!-- Footer content -->
+    </footer>
+
+    <script src="script.js"></script>
+    <!-- Include the navigation menu script -->
+    <script>
+        // Client-side include for the navigation menu
+        fetch('navigation.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('navigation-placeholder').innerHTML = html;
+            })
+            .catch(error => console.error('Error:', error));
+    </script>
+</body>
+</html>

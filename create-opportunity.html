@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BetterWorld - Create Volunteer Opportunity</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Include the navigation menu and org navigation -->
+    <div id="navigation-placeholder"></div>
+    <div id="org-navigation-placeholder"></div>
+
+    <main>
+        <section class="create-opportunity-section">
+            <h1>Create Volunteer Opportunity</h1>
+            <form>
+                <div>
+                    <label for="opportunity-title">Title</label>
+                    <input type="text" id="opportunity-title" name="opportunity-title" required>
+                </div>
+                <div>
+                    <label for="opportunity-description">Description</label>
+                    <textarea id="opportunity-description" name="opportunity-description" required></textarea>
+                </div>
+                <div>
+                    <label for="opportunity-cause">Cause Area</label>
+                    <select id="opportunity-cause" name="opportunity-cause" required>
+                        <option value="">Select a cause area</option>
+                        <option value="education">Education</option>
+                        <option value="environment">Environment</option>
+                        <option value="health">Health</option>
+                        <option value="community-development">Community Development</option>
+                        <option value="animal-welfare">Animal Welfare</option>
+                        <option value="human-rights">Human Rights</option>
+                        <!-- Add more cause areas as needed -->
+                    </select>
+                </div>
+                <div>
+                    <label for="opportunity-location">Location</label>
+                    <input type="text" id="opportunity-location" name="opportunity-location" required>
+                </div>
+                <div>
+                    <label for="opportunity-contact">Contact Information</label>
+                    <input type="text" id="opportunity-contact" name="opportunity-contact" required>
+                </div>
+                <div>
+                    <label for="opportunity-image">Upload Image</label>
+                    <input type="file" id="opportunity-image" name="opportunity-image" accept="image/*">
+                </div>
+                <button type="submit">Create Opportunity</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <!-- Footer content -->
+    </footer>
+
+    <script src="script.js"></script>
+    <!-- Include the navigation menu and org navigation scripts -->
+    <script>
+        // Client-side include for the navigation menu
+        fetch('navigation.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('navigation-placeholder').innerHTML = html;
+            })
+            .catch(error => console.error('Error:', error));
+
+        // Client-side include for the org navigation
+        fetch('org-navigation.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('org-navigation-placeholder').innerHTML = html;
+            })
+            .catch(error => console.error('Error:', error));
+    </script>
+</body>
+</html>

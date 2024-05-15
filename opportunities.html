@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BetterWorld - Volunteer Opportunities</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Include the navigation menu -->
+    <div id="user-navigation-placeholder"></div>
+
+    <script>
+    // Client-side include for the user navigation
+    fetch('user-navigation.html')
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById('user-navigation-placeholder').innerHTML = html;
+        })
+        .catch(error => console.error('Error:', error));
+    </script>
+    <main>
+        <section class="opportunities-section">
+            <h1>Volunteer Opportunities</h1>
+            <div class="filters">
+                <!-- Add filters for location, cause area, time commitment, etc. -->
+            </div>
+            <div class="opportunity-list">
+                <!-- Dynamically populate with opportunity cards -->
+                <div class="opportunity-card">
+                    <img src="opportunity-image.jpg" alt="Opportunity Image">
+                    <h2>Opportunity Title</h2>
+                    <p>Cause Area: Education</p>
+                    <p>Location: New York, NY</p>
+                    <a href="opportunity-details.html">View Details</a>
+                </div>
+                <!-- Add more opportunity cards as needed -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <!-- Footer content -->
+    </footer>
+
+    <script src="script.js"></script>
+    <!-- Include the navigation menu script -->
+    <script>
+        // Client-side include for the navigation menu
+        fetch('navigation.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('navigation-placeholder').innerHTML = html;
+            })
+            .catch(error => console.error('Error:', error));
+    </script>
+</body>
+</html>

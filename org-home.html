@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BetterWorld - Nonprofit Organization Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Include the navigation menu -->
+    <div id="navigation-placeholder"></div>
+
+    <main>
+        <section class="org-home-section">
+            <h1>Welcome to the Nonprofit Organization Portal</h1>
+            <p>From this portal, you can manage your organization's information, create and update volunteer opportunities, and interact with potential volunteers.</p>
+            <div class="org-actions">
+                <a href="create-opportunity.html">Create Volunteer Opportunity</a>
+                <a href="#">View Current Opportunities</a>
+                <a href="#">Manage Applications</a>
+                <!-- Add more action links as needed -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <!-- Footer content -->
+    </footer>
+
+    <script src="script.js"></script>
+    <!-- Include the navigation menu script -->
+    <script>
+        // Client-side include for the navigation menu
+        fetch('navigation.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('navigation-placeholder').innerHTML = html;
+            })
+            .catch(error => console.error('Error:', error));
+    </script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BetterWorld - User Profile</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Include the user navigation menu -->
+    <div id="user-navigation-placeholder"></div>
+
+    <script>
+        // Client-side include for the user navigation
+        fetch('user-navigation.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('user-navigation-placeholder').innerHTML = html;
+            })
+            .catch(error => console.error('Error:', error));
+    </script>
+
+    <main>
+        <section class="profile-section">
+            <h1>User Profile</h1>
+            <div class="profile-info">
+                <div class="profile-picture">
+                    <!-- Display user's profile picture or a placeholder image -->
+                </div>
+                <div class="profile-details">
+                    <h2>Name</h2>
+                    <p id="profile-name">John Doe</p>
+                    <h2>Email</h2>
+                    <p id="profile-email">johndoe@email.com</p>
+                </div>
+            </div>
+            <div class="profile-edit">
+                <h2>Edit Profile</h2>
+                <form>
+                    <div>
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" value="John Doe">
+                    </div>
+                    <div>
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" value="johndoe@email.com">
+                    </div>
+                    <div>
+                        <label for="interests">Interests</label>
+                        <textarea id="interests" name="interests"></textarea>
+                    </div>
+                    <div>
+                        <label for="skills">Skills</label>
+                        <textarea id="skills" name="skills"></textarea>
+                    </div>
+                    <div>
+                        <label for="availability">Availability</label>
+                        <textarea id="availability" name="availability"></textarea>
+                    </div>
+                    <button type="submit">Save Changes</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <!-- Footer content -->
+    </footer>
+
+    <script src="script.js"></script>
+    <!-- Include the navigation menu script -->
+    <script>
+        // Client-side include for the navigation menu
+        fetch('navigation.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('navigation-placeholder').innerHTML = html;
+            })
+            .catch(error => console.error('Error:', error));
+    </script>
+</body>
+</html>

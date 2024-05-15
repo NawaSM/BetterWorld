@@ -8,20 +8,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo">
-                <a href="#">BetterWorld</a>
-            </div>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Volunteer Opportunities</a></li>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Contact</a></li>
-                <li><a href="#">Login/Register</a></li>
-            </ul>
-        </nav>
-    </header>
+     <div id="user-navigation-placeholder"></div>
 
     <main>
         <section class="hero">
@@ -64,5 +51,14 @@
 
     <!-- Link to external JavaScript file -->
     <script src="script.js"></script>
+    <script>
+        // Client-side include for the user navigation
+        fetch('user-navigation.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('user-navigation-placeholder').innerHTML = html;
+            })
+            .catch(error => console.error('Error:', error));
+    </script>
 </body>
 </html>
