@@ -7,9 +7,17 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Include the navigation menu and org navigation -->
-    <div id="navigation-placeholder"></div>
-    <div id="org-navigation-placeholder"></div>
+    <!-- Include the organization navigation menu -->
+    <nav class="org-navigation">
+        <ul>
+            <li><a href="org-home.html">Home</a></li>
+            <li><a href="create-opportunity.html">Create Opportunity</a></li>
+            <li><a href="manage-opportunities.html">Manage Opportunities</a></li>
+            <li><a href="manage-applications.html">Manage Applications</a></li>
+            <li><a href="org-profile.html">Organization Profile</a></li>
+            <li><a href="org-login.html">Logout</a></li>
+        </ul>
+    </nav>
 
     <main>
         <section class="create-opportunity-section">
@@ -54,27 +62,7 @@
     </main>
 
     <footer>
-        <!-- Footer content -->
+        <p>&copy; BetterWorld</p>
     </footer>
-
-    <script src="script.js"></script>
-    <!-- Include the navigation menu and org navigation scripts -->
-    <script>
-        // Client-side include for the navigation menu
-        fetch('navigation.html')
-            .then(response => response.text())
-            .then(html => {
-                document.getElementById('navigation-placeholder').innerHTML = html;
-            })
-            .catch(error => console.error('Error:', error));
-
-        // Client-side include for the org navigation
-        fetch('org-navigation.html')
-            .then(response => response.text())
-            .then(html => {
-                document.getElementById('org-navigation-placeholder').innerHTML = html;
-            })
-            .catch(error => console.error('Error:', error));
-    </script>
 </body>
 </html>

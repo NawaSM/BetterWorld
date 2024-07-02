@@ -3,56 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BetterWorld - Volunteer Opportunities</title>
+    <title>Volunteer Opportunities - BetterWorld</title>
     <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
-    <!-- Include the navigation menu -->
-    <div id="user-navigation-placeholder"></div>
+    <!-- Include the user navigation menu -->
+    <nav class="user-navigation">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="opportunities.html">Volunteer Opportunities</a></li>
+            <li><a href="profile.html">My Profile</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="login.html">Logout</a></li>
+        </ul>
+    </nav>
 
-    <script>
-    // Client-side include for the user navigation
-    fetch('user-navigation.html')
-        .then(response => response.text())
-        .then(html => {
-            document.getElementById('user-navigation-placeholder').innerHTML = html;
-        })
-        .catch(error => console.error('Error:', error));
-    </script>
     <main>
-        <section class="opportunities-section">
+        <section class="opportunities">
             <h1>Volunteer Opportunities</h1>
-            <div class="filters">
-                <!-- Add filters for location, cause area, time commitment, etc. -->
+            <div class="search-bar">
+                <input type="text" placeholder="Search opportunities...">
+                <button>Search</button>
             </div>
             <div class="opportunity-list">
-                <!-- Dynamically populate with opportunity cards -->
                 <div class="opportunity-card">
-                    <img src="opportunity-image.jpg" alt="Opportunity Image">
-                    <h2>Opportunity Title</h2>
-                    <p>Cause Area: Education</p>
-                    <p>Location: New York, NY</p>
-                    <a href="opportunity-details.html">View Details</a>
+                    <img src="opportunity1.jpg" alt="Opportunity 1">
+                    <h3>Beach Cleanup</h3>
+                    <p>Help clean up our local beaches and protect marine life.</p>
+                    <a href="opportunity-details.html" class="btn">Learn More</a>
                 </div>
-                <!-- Add more opportunity cards as needed -->
+                <!-- More opportunity cards -->
             </div>
         </section>
     </main>
 
     <footer>
-        <!-- Footer content -->
+        <p>&copy; BetterWorld</p>
     </footer>
-
-    <script src="script.js"></script>
-    <!-- Include the navigation menu script -->
-    <script>
-        // Client-side include for the navigation menu
-        fetch('navigation.html')
-            .then(response => response.text())
-            .then(html => {
-                document.getElementById('navigation-placeholder').innerHTML = html;
-            })
-            .catch(error => console.error('Error:', error));
-    </script>
 </body>
 </html>

@@ -7,36 +7,28 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Include the navigation menu -->
-    <div id="navigation-placeholder"></div>
+    <!-- Include the organization navigation menu -->
+    <nav class="org-navigation">
+        <ul>
+            <li><a href="org-home.html">Home</a></li>
+            <li><a href="create-opportunity.html">Create Opportunity</a></li>
+            <li><a href="manage-opportunities.html">Manage Opportunities</a></li>
+            <li><a href="manage-applications.html">Manage Applications</a></li>
+            <li><a href="org-profile.html">Organization Profile</a></li>
+            <li><a href="org-login.html">Logout</a></li>
+        </ul>
+    </nav>
 
     <main>
         <section class="org-home-section">
             <h1>Welcome to the Nonprofit Organization Portal</h1>
             <p>From this portal, you can manage your organization's information, create and update volunteer opportunities, and interact with potential volunteers.</p>
-            <div class="org-actions">
-                <a href="create-opportunity.html">Create Volunteer Opportunity</a>
-                <a href="#">View Current Opportunities</a>
-                <a href="#">Manage Applications</a>
-                <!-- Add more action links as needed -->
-            </div>
+            <!-- Add more content or calls-to-action for the organization portal home -->
         </section>
     </main>
 
     <footer>
-        <!-- Footer content -->
+        <p>&copy; BetterWorld</p>
     </footer>
-
-    <script src="script.js"></script>
-    <!-- Include the navigation menu script -->
-    <script>
-        // Client-side include for the navigation menu
-        fetch('navigation.html')
-            .then(response => response.text())
-            .then(html => {
-                document.getElementById('navigation-placeholder').innerHTML = html;
-            })
-            .catch(error => console.error('Error:', error));
-    </script>
 </body>
 </html>

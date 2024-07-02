@@ -7,21 +7,11 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Include the navigation menu -->
-    <div id="navigation-placeholder"></div>
-
     <main>
         <section class="login-section">
             <h1>Login</h1>
             <form>
-                <div>
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div>
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required>
-                </div>
+                <!-- Login form fields -->
                 <button type="submit">Login</button>
             </form>
             <p>Don't have an account? <a href="register.html">Register</a> | <a href="org-login.html">Nonprofit Organization Login</a></p>
@@ -29,19 +19,7 @@
     </main>
 
     <footer>
-        <!-- Footer content -->
+        <p>&copy; BetterWorld</p>
     </footer>
-
-    <script src="script.js"></script>
-    <!-- Include the navigation menu script -->
-    <script>
-        // Client-side include for the navigation menu
-        fetch('navigation.html')
-            .then(response => response.text())
-            .then(html => {
-                document.getElementById('navigation-placeholder').innerHTML = html;
-            })
-            .catch(error => console.error('Error:', error));
-    </script>
 </body>
 </html>
