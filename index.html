@@ -10,22 +10,23 @@
 <body>
     <header>
         <nav>
-            <div class="logo">
-                <a href="index.html">BetterWorld</a>
+            <div class="navbar">
+                <div class="logo">
+                    <a href="index.html">BetterWorld</a>
+                </div>
+                <div class="nav-links">
+                    <input type="checkbox" id="checkbox_toggle" />
+                    <label for="checkbox_toggle" class="hamburger">&#9776;</label>
+                    <ul class="menu">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="opportunities.html">Volunteer Opportunities</a></li>
+                        <li><a href="profile.html">My Profile</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="login.html">Logout</a></li>
+                    </ul>
+                </div>
             </div>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="opportunities.html">Volunteer Opportunities</a></li>
-                <li><a href="profile.html">My Profile</a></li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="login.html">Logout</a></li>
-            </ul>
         </nav>
     </header>
 
@@ -46,21 +47,27 @@
             <div class="opportunity-slider">
                 <div class="opportunity-card">
                     <img src="opportunity1.jpg" alt="Opportunity 1">
-                    <h3>Beach Cleanup</h3>
-                    <p>Help clean up our local beaches and protect marine life.</p>
-                    <a href="opportunity-details.html" class="btn">Learn More</a>
+                    <div class="opportunity-card-content">
+                        <h3>Beach Cleanup</h3>
+                        <p>Help clean up our local beaches and protect marine life.</p>
+                        <a href="opportunity-details.html" class="btn">Learn More</a>
+                    </div>
                 </div>
                 <div class="opportunity-card">
                     <img src="opportunity2.jpg" alt="Opportunity 2">
-                    <h3>Community Garden</h3>
-                    <p>Volunteer at our community garden and promote sustainable living.</p>
-                    <a href="opportunity-details.html" class="btn">Learn More</a>
+                    <div class="opportunity-card-content">
+                        <h3>Community Garden</h3>
+                        <p>Volunteer at our community garden and promote sustainable living.</p>
+                        <a href="opportunity-details.html" class="btn">Learn More</a>
+                    </div>
                 </div>
                 <div class="opportunity-card">
                     <img src="opportunity3.jpg" alt="Opportunity 3">
-                    <h3>Tutoring Program</h3>
-                    <p>Tutor underprivileged students and help them succeed academically.</p>
-                    <a href="opportunity-details.html" class="btn">Learn More</a>
+                    <div class="opportunity-card-content">
+                        <h3>Tutoring Program</h3>
+                        <p>Tutor underprivileged students and help them succeed academically.</p>
+                        <a href="opportunity-details.html" class="btn">Learn More</a>
+                    </div>
                 </div>
             </div>
         </section>
