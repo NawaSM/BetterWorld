@@ -3,24 +3,36 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    line-height: 1.6;
+    color: #333;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
 /* Header and Navigation */
 header {
-    background-color: #333;
-    padding: 20px;
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    padding: 1rem 0;
 }
 
 nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0 20px;
 }
 
 .logo a {
-    color: #fff;
-    font-size: 24px;
+    color: #ecf0f1;
     text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: bold;
 }
 
 .hamburger {
@@ -32,14 +44,14 @@ nav {
     display: block;
     width: 25px;
     height: 3px;
-    background-color: #fff;
-    margin: 5px;
-    transition: transform 0.3s ease;
+    background-color: #ecf0f1;
+    margin: 5px 0;
+    transition: all 0.3s ease;
 }
 
 .nav-menu {
     display: flex;
-    list-style: none;
+    list-style-type: none;
 }
 
 .nav-menu li {
@@ -47,193 +59,187 @@ nav {
 }
 
 .nav-menu a {
-    color: #fff;
+    color: #ecf0f1;
     text-decoration: none;
 }
 
 /* Hero Section */
 .hero {
-    display: flex;
-    align-items: center;
-    padding: 100px 0;
-    background-color: #f5f5f5;
+    background-color: #3498db;
+    color: #fff;
+    text-align: center;
+    padding: 4rem 0;
 }
 
-.hero-content {
-    flex: 1;
-    padding: 0 50px;
+.hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
 }
 
-.hero-content h1 {
-    font-size: 36px;
-    margin-bottom: 20px;
-}
-
-.hero-content p {
-    font-size: 18px;
-    margin-bottom: 30px;
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
 }
 
 .cta-button {
     display: inline-block;
-    background-color: #333;
+    background-color: #2ecc71;
     color: #fff;
     padding: 10px 20px;
     text-decoration: none;
     border-radius: 5px;
+    transition: background-color 0.3s ease;
 }
 
-.hero-image {
-    flex: 1;
+.cta-button:hover {
+    background-color: #27ae60;
+}
+
+/* Sections */
+section {
+    padding: 4rem 0;
+}
+
+section h2 {
     text-align: center;
+    margin-bottom: 2rem;
 }
 
-.hero-image img {
-    max-width: 100%;
-    height: auto;
-}
-
-/* Featured Opportunities */
-.featured-opportunities {
-    padding: 50px 0;
-    text-align: center;
-}
-
-.opportunity-slider {
-    display: flex;
-    justify-content: center;
-    margin-top: 30px;
-}
-
+/* Opportunity Cards */
 .opportunity-card {
-    width: 300px;
-    padding: 20px;
-    margin: 0 20px;
     background-color: #fff;
+    border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    overflow: hidden;
 }
 
 .opportunity-card img {
     width: 100%;
-    height: auto;
-    margin-bottom: 10px;
+    height: 200px;
+    object-fit: cover;
+}
+
+.opportunity-card-content {
+    padding: 20px;
 }
 
 .opportunity-card h3 {
-    font-size: 20px;
-    margin-bottom: 10px;
+    margin-top: 0;
 }
 
-.opportunity-card p {
-    font-size: 14px;
+/* Forms */
+form {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+form div {
     margin-bottom: 20px;
 }
 
-.btn {
-    display: inline-block;
-    background-color: #333;
-    color: #fff;
-    padding: 8px 16px;
-    text-decoration: none;
+form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
     border-radius: 5px;
 }
 
-/* How It Works */
-.how-it-works {
-    padding: 50px 0;
-    text-align: center;
+form button {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-.step-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 30px;
-}
-
-.step {
-    width: 200px;
-    padding: 20px;
-    margin: 0 20px;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.step img {
-    width: 80px;
-    height: auto;
-    margin-bottom: 10px;
-}
-
-.step h3 {
-    font-size: 18px;
-    margin-bottom: 10px;
-}
-
-.step p {
-    font-size: 14px;
+form button:hover {
+    background-color: #2980b9;
 }
 
 /* Footer */
 footer {
-    background-color: #333;
-    color: #fff;
-    padding: 20px;
+    background-color: #34495e;
+    color: #ecf0f1;
     text-align: center;
+    padding: 20px 0;
 }
 
-/* Responsive Styles */
+/* Responsive Design */
 @media screen and (max-width: 768px) {
     .hamburger {
         display: block;
     }
 
     .nav-menu {
-        display: none;
+        position: fixed;
+        left: -100%;
+        top: 70px;
         flex-direction: column;
+        background-color: #2c3e50;
         width: 100%;
-        position: absolute;
-        top: 80px;
-        left: 0;
-        background-color: #333;
-        padding: 20px;
-    }
-
-    .nav-menu li {
-        margin: 10px 0;
+        text-align: center;
+        transition: 0.3s;
+        box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
     }
 
     .nav-menu.active {
-        display: flex;
+        left: 0;
     }
 
-    .hero {
-        flex-direction: column;
-        padding: 50px 0;
+    .nav-menu li {
+        margin: 25px 0;
     }
 
-    .hero-content {
-        padding: 0 20px;
+    .nav-menu a {
+        font-size: 1.2rem;
     }
+}
 
-    .hero-image {
-        margin-top: 30px;
-    }
+/* Organization Portal Styles */
+.org-dashboard {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 2rem;
+}
 
-    .opportunity-slider {
-        flex-direction: column;
-        align-items: center;
-    }
+.dashboard-item {
+    text-align: center;
+    padding: 20px;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+}
 
-    .opportunity-card {
-        margin: 20px 0;
-    }
+.dashboard-item h2 {
+    margin-top: 0;
+}
 
-    .step-container {
-        flex-direction: column;
-        align-items: center;
-    }
+.dashboard-item p {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0;
+}
 
-    .step {
-        margin: 20px 0;
-    }
+/* Profile Styles */
+.profile-info, .org-profile-info {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.profile-info img, .org-profile-info img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1rem;
 }

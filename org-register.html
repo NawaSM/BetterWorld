@@ -3,23 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BetterWorld - Nonprofit Organization Registration</title>
+    <title>Register Your Organization - BetterWorld</title>
     <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="index.html">BetterWorld</a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="opportunities.html">Volunteer Opportunities</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="login.html">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
     <main>
         <section class="org-register-section">
             <h1>Register Your Organization</h1>
-            <form>
-                <!-- Organization registration form fields -->
-                <button type="submit">Register</button>
+            <form class="org-register-form">
+                <div>
+                    <label for="org-name">Organization Name:</label>
+                    <input type="text" id="org-name" name="org-name" required>
+                </div>
+                <div>
+                    <label for="org-email">Email:</label>
+                    <input type="email" id="org-email" name="org-email" required>
+                </div>
+                <div>
+                    <label for="org-password">Password:</label>
+                    <input type="password" id="org-password" name="org-password" required>
+                </div>
+                <div>
+                    <label for="org-confirm-password">Confirm Password:</label>
+                    <input type="password" id="org-confirm-password" name="org-confirm-password" required>
+                </div>
+                <div>
+                    <label for="org-description">Organization Description:</label>
+                    <textarea id="org-description" name="org-description" required></textarea>
+                </div>
+                <button type="submit" class="btn">Register Organization</button>
             </form>
-            <p>Already have an account? <a href="org-login.html">Login</a> | <a href="login.html">User Login</a></p>
+            <p>Already have an account? <a href="org-login.html">Login</a></p>
         </section>
     </main>
 
     <footer>
-        <p>&copy; BetterWorld</p>
+        <p>&copy; BetterWorld. All rights reserved.</p>
     </footer>
 </body>
 </html>
