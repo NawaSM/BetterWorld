@@ -8,26 +8,23 @@
     <script src="script.js" defer></script>
 </head>
 <body>
-    <header>
-        <nav>
+    <nav>
+        <div class="navbar">
             <div class="logo">
-                <a href="org-home.html">BetterWorld Org Portal</a>
+                <a href="org-home.php">BetterWorld Org Portal</a>
             </div>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+            <div class="nav-links">
+                <ul class="menu">
+                    <li><a href="org-home.php">Home</a></li>
+                    <li><a href="create-opportunity.php">Create Opportunity</a></li>
+                    <li><a href="manage-opportunities.php">Manage Opportunities</a></li>
+                    <li><a href="manage-applications.php">Manage Applications</a></li>
+                    <li><a href="org-profile.php">Organization Profile</a></li>
+                    <li><a href="org-login.php">Logout</a></li>
+                </ul>
             </div>
-            <ul class="nav-menu">
-                <li><a href="org-home.html">Home</a></li>
-                <li><a href="create-opportunity.html">Create Opportunity</a></li>
-                <li><a href="manage-opportunities.html">Manage Opportunities</a></li>
-                <li><a href="manage-applications.html">Manage Applications</a></li>
-                <li><a href="org-profile.html">Organization Profile</a></li>
-                <li><a href="org-login.html">Logout</a></li>
-            </ul>
-        </nav>
-    </header>
+        </div>
+    </nav>
 
     <main>
         <section class="org-home-section">

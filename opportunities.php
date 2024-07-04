@@ -14,8 +14,6 @@
                 <a href="index.html">BetterWorld</a>
             </div>
             <div class="nav-links">
-                <input type="checkbox" id="checkbox_toggle" />
-                <label for="checkbox_toggle" class="hamburger">&#9776;</label>
                 <ul class="menu">
                     <li><a href="index.html">Home</a></li>
                     <li><a href="opportunities.php">Volunteer Opportunities</a></li>
@@ -39,9 +37,9 @@
                 <?php
                 // Retrieve opportunities from the database
                 $servername = "localhost";
-                $username = "your_username";
-                $password = "your_password";
-                $dbname = "your_database";
+                $username = "root";
+                $password = "";
+                $dbname = "betterworld";
 
                 $conn = new mysqli($servername, $username, $password, $dbname);
                 if ($conn->connect_error) {
