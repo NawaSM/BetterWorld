@@ -8,30 +8,27 @@
     <script src="script.js" defer></script>
 </head>
 <body>
-    <header>
-        <nav>
+    <nav>
+        <div class="navbar">
             <div class="logo">
-                <a href="index.html">BetterWorld</a>
+                <a href="index.php">BetterWorld</a>
             </div>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+            <div class="nav-links">
+                <ul class="menu">
+                    <li><a href="index.php">Home</a></li>
+                    <li><a href="opportunities.php">Volunteer Opportunities</a></li>
+                    <li><a href="about.php">About Us</a></li>
+                    <li><a href="contact.php">Contact</a></li>
+                    <li><a href="login.php">Login</a></li>
+                </ul>
             </div>
-            <ul class="nav-menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="opportunities.html">Volunteer Opportunities</a></li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="login.html">Login</a></li>
-            </ul>
-        </nav>
-    </header>
+        </div>
+    </nav>
 
     <main>
         <section class="org-register-section">
             <h1>Register Your Organization</h1>
-            <form class="org-register-form">
+            <form class="org-register-form" action="org-register-process.php" method="POST">
                 <div>
                     <label for="org-name">Organization Name:</label>
                     <input type="text" id="org-name" name="org-name" required>
@@ -54,7 +51,7 @@
                 </div>
                 <button type="submit" class="btn">Register Organization</button>
             </form>
-            <p>Already have an account? <a href="org-login.html">Login</a></p>
+            <p>Already have an account? <a href="org-login.php">Login</a></p>
         </section>
     </main>
 

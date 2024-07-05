@@ -8,30 +8,27 @@
     <script src="script.js" defer></script>
 </head>
 <body>
-    <header>
-        <nav>
+    <nav>
+        <div class="navbar">
             <div class="logo">
-                <a href="index.html">BetterWorld</a>
+                <a href="index.php">BetterWorld</a>
             </div>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+            <div class="nav-links">
+                <ul class="menu">
+                    <li><a href="index.php">Home</a></li>
+                    <li><a href="opportunities.php">Volunteer Opportunities</a></li>
+                    <li><a href="about.php">About Us</a></li>
+                    <li><a href="contact.php">Contact</a></li>
+                    <li><a href="login.php">Login</a></li>
+                </ul>
             </div>
-            <ul class="nav-menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="opportunities.html">Volunteer Opportunities</a></li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="login.html">Login</a></li>
-            </ul>
-        </nav>
-    </header>
+        </div>
+    </nav>
 
     <main>
         <section class="org-login-section">
             <h1>Nonprofit Organization Login</h1>
-            <form class="org-login-form">
+            <form class="org-login-form" action="org-login-process.php" method="POST">
                 <div>
                     <label for="org-email">Email:</label>
                     <input type="email" id="org-email" name="org-email" required>
@@ -42,8 +39,8 @@
                 </div>
                 <button type="submit" class="btn">Login</button>
             </form>
-            <p>Don't have an account? <a href="org-register.html">Register your organization</a></p>
-            <p><a href="login.html">Volunteer Login</a></p>
+            <p>Don't have an account? <a href="org-register.php">Register your organization</a></p>
+            <p><a href="login.php">Volunteer Login</a></p>
         </section>
     </main>
 

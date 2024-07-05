@@ -1,9 +1,11 @@
 <?php
+session_start();
+
 // Process the form submission and insert the opportunity into the database
 $servername = "localhost";
-$username = "your_username";
-$password = "your_password";
-$dbname = "your_database";
+$username = "root";
+$password = "";
+$dbname = "betterworld";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
@@ -16,24 +18,29 @@ $date = $_POST['opportunity-date'];
 $location = $_POST['opportunity-location'];
 
 // Handle image upload
-$targetDir = 'uploads/';
-$targetFile = $targetDir . basename($_FILES['opportunity-image']['name']);
-$imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
-$uploadSuccess = move_uploaded_file($_FILES['opportunity-image']['tmp_name'], $targetFile);
-
-if ($uploadSuccess) {
-    $imagePath = $targetFile;
+if (isset($_FILES['opportunity-image']) && $_FILES['opportunity-image']['error'] === UPLOAD_ERR_OK) {
+    $image = file_get_contents($_FILES['opportunity-image']['tmp_name']);
 } else {
-    $imagePath = '';
+    $image = null;
 }
 
-$sql = "INSERT INTO opportunities (title, description, date, location, image) VALUES ('$title', '$description', '$date', '$location', '$imagePath')";
+// Get the organization ID from the session
+if (isset($_SESSION['org_id'])) {
+    $organizationId = $_SESSION['org_id'];
 
-if ($conn->query($sql) === TRUE) {
-    header("Location: opportunities.php");
-    exit();
+    $stmt = $conn->prepare("INSERT INTO opportunities (title, description, date, location, image, organization_id) VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssssi", $title, $description, $date, $location, $image, $organizationId);
+
+    if ($stmt->execute()) {
+        header("Location: manage-opportunities.php");
+        exit();
+    } else {
+        echo "Error: " . $stmt->error;
+    }
+
+    $stmt->close();
 } else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
+    echo "Organization not logged in.";
 }
 
 $conn->close();
