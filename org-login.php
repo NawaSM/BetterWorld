@@ -1,51 +1,75 @@
+<?php
+session_start();
+require_once 'db_connection.php';
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    $stmt = $conn->prepare("SELECT id, password FROM organizations WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    if ($result->num_rows == 1) {
+        $org = $result->fetch_assoc();
+        if (password_verify($password, $org['password'])) {
+            $_SESSION['org_id'] = $org['id'];
+            header("Location: org-home.php");
+            exit();
+        } else {
+            $error = "Invalid password for this email.";
+        }
+    } else {
+        $error = "No organization found with this email.";
+    }
+    
+    if (isset($error)) {
+        echo "Error: " . $error;
+        exit();
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nonprofit Organization Login - BetterWorld</title>
+    <title>Organization Login - BetterWorld</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
 </head>
 <body>
-    <nav>
-        <div class="navbar">
-            <div class="logo">
-                <a href="index.php">BetterWorld</a>
-            </div>
-            <div class="nav-links">
-                <ul class="menu">
-                    <li><a href="index.php">Home</a></li>
-                    <li><a href="opportunities.php">Volunteer Opportunities</a></li>
-                    <li><a href="about.php">About Us</a></li>
-                    <li><a href="contact.php">Contact</a></li>
-                    <li><a href="login.php">Login</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <?php include 'nav.php'; ?>
 
-    <main>
-        <section class="org-login-section">
-            <h1>Nonprofit Organization Login</h1>
-            <form class="org-login-form" action="org-login-process.php" method="POST">
+    <div class="content-wrapper">
+        <main class="container">
+            <h1>Organization Login</h1>
+            <?php
+            if (isset($error)) {
+                echo "<p class='error'>$error</p>";
+            }
+            ?>
+            <form id="org-login-form" action="org-login.php" method="POST">
                 <div>
-                    <label for="org-email">Email:</label>
-                    <input type="email" id="org-email" name="org-email" required>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
                 </div>
                 <div>
-                    <label for="org-password">Password:</label>
-                    <input type="password" id="org-password" name="org-password" required>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
                 </div>
                 <button type="submit" class="btn">Login</button>
             </form>
-            <p>Don't have an account? <a href="org-register.php">Register your organization</a></p>
-            <p><a href="login.php">Volunteer Login</a></p>
-        </section>
-    </main>
+            <p>Don't have an organization account? <a href="org-register.php">Register your organization</a></p>
+            <p>Are you a volunteer? <a href="login.php">Login as a volunteer</a></p>
+        </main>
+    </div>
 
     <footer>
-        <p>&copy; BetterWorld. All rights reserved.</p>
+        <p>&copy; 2023 BetterWorld. All rights reserved.</p>
     </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>

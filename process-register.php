@@ -1,4 +1,5 @@
 <?php
+require_once 'email_functions.php';
 // Process the user registration form submission
 $servername = "localhost";
 $username = "root";
@@ -19,7 +20,9 @@ $stmt = $conn->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, 
 $stmt->bind_param("sss", $name, $email, $hashedPassword);
 
 if ($stmt->execute()) {
-    header("Location: login.php");
+    $user_id = $conn->insert_id;
+    sendRegistrationNotification($email, $name, false);
+    header("Location: login.php?registered=1");
     exit();
 } else {
     echo "Error: " . $stmt->error;

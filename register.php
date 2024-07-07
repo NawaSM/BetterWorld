@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (isset($_SESSION['user_id'])) {
+    header("Location: profile.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,32 +12,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - BetterWorld</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
 </head>
 <body>
-    <nav>
-        <div class="navbar">
-            <div class="logo">
-                <a href="index.php">BetterWorld</a>
-            </div>
-            <div class="nav-links">
-                <ul class="menu">
-                    <li><a href="index.php">Home</a></li>
-                    <li><a href="opportunities.php">Volunteer Opportunities</a></li>
-                    <li><a href="about.php">About Us</a></li>
-                    <li><a href="contact.php">Contact</a></li>
-                    <li><a href="login.php">Login</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <?php include 'nav.php'; ?>
 
-    <main>
-        <section class="register-section">
+    <div class="content-wrapper">
+        <main class="container">
             <h1>Register</h1>
-            <form class="register-form" action="register-process.php" method="POST">
+            <form id="register-form" action="process-register.php" method="POST">
                 <div>
-                    <label for="name">Name:</label>
+                    <label for="name">Full Name:</label>
                     <input type="text" id="name" name="name" required>
                 </div>
                 <div>
@@ -47,12 +38,15 @@
                 </div>
                 <button type="submit" class="btn">Register</button>
             </form>
-            <p>Already have an account? <a href="login.php">Login</a></p>
-        </section>
-    </main>
+            <p>Already have an account? <a href="login.php">Login here</a></p>
+            <p>Are you an organization? <a href="org-register.php">Register as an organization</a></p>
+        </main>
+    </div>
 
     <footer>
-        <p>&copy; BetterWorld. All rights reserved.</p>
+        <p>&copy; 2023 BetterWorld. All rights reserved.</p>
     </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>

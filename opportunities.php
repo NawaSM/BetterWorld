@@ -1,3 +1,26 @@
+<?php
+session_start();
+require_once 'db_connection.php';
+
+$search = isset($_GET['search']) ? $_GET['search'] : '';
+$sort = isset($_GET['sort']) ? $_GET['sort'] : 'date';
+$order = isset($_GET['order']) ? $_GET['order'] : 'DESC';
+
+$query = "SELECT * FROM opportunities WHERE 1=1";
+if (!empty($search)) {
+    $query .= " AND (title LIKE ? OR description LIKE ?)";
+}
+$query .= " ORDER BY $sort $order";
+
+$stmt = $conn->prepare($query);
+if (!empty($search)) {
+    $search_param = "%$search%";
+    $stmt->bind_param("ss", $search_param, $search_param);
+}
+$stmt->execute();
+$result = $stmt->get_result();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,73 +28,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Volunteer Opportunities - BetterWorld</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
 </head>
 <body>
-    <nav>
-        <div class="navbar">
-            <div class="logo">
-                <a href="index.html">BetterWorld</a>
-            </div>
-            <div class="nav-links">
-                <ul class="menu">
-                    <li><a href="index.php">Home</a></li>
-                    <li><a href="opportunities.php">Volunteer Opportunities</a></li>
-                    <li><a href="profile.html">My Profile</a></li>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                    <li><a href="login.php">Logout</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <?php include 'nav.php'; ?>
 
-    <main>
-        <section class="opportunities">
+    <div class="content-wrapper">
+        <main class="container">
             <h1>Volunteer Opportunities</h1>
-            <div class="search-bar">
-                <input type="text" placeholder="Search opportunities...">
-                <button>Search</button>
-            </div>
+            
+            <form action="" method="GET" class="search-sort-form">
+                <input type="text" name="search" placeholder="Search opportunities" value="<?php echo htmlspecialchars($search); ?>">
+                <select name="sort">
+                    <option value="date" <?php echo $sort == 'date' ? 'selected' : ''; ?>>Date</option>
+                    <option value="title" <?php echo $sort == 'title' ? 'selected' : ''; ?>>Title</option>
+                </select>
+                <select name="order">
+                    <option value="DESC" <?php echo $order == 'DESC' ? 'selected' : ''; ?>>Descending</option>
+                    <option value="ASC" <?php echo $order == 'ASC' ? 'selected' : ''; ?>>Ascending</option>
+                </select>
+                <button type="submit">Apply</button>
+            </form>
+
             <div class="opportunity-list">
-                <?php
-                // Retrieve opportunities from the database
-                $servername = "localhost";
-                $username = "root";
-                $password = "";
-                $dbname = "betterworld";
-
-                $conn = new mysqli($servername, $username, $password, $dbname);
-                if ($conn->connect_error) {
-                    die("Connection failed: " . $conn->connect_error);
-                }
-
-                $sql = "SELECT * FROM opportunities";
-                $result = $conn->query($sql);
-
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        echo '<div class="opportunity-card">';
-                        echo '<img src="' . $row['image'] . '" alt="' . $row['title'] . '">';
-                        echo '<div class="opportunity-card-content">';
-                        echo '<h3>' . $row['title'] . '</h3>';
-                        echo '<p>' . $row['description'] . '</p>';
-                        echo '<a href="opportunity-details.php?id=' . $row['id'] . '" class="btn">Learn More</a>';
-                        echo '</div>';
-                        echo '</div>';
-                    }
-                } else {
-                    echo '<p>No opportunities found.</p>';
-                }
-
-                $conn->close();
-                ?>
+                <?php while ($opportunity = $result->fetch_assoc()): ?>
+                    <div class="opportunity-card">
+                        <?php if ($opportunity['image']): ?>
+                            <img src="<?php echo htmlspecialchars($opportunity['image']); ?>" alt="<?php echo htmlspecialchars($opportunity['title']); ?>">
+                        <?php endif; ?>
+                        <div class="opportunity-card-content">
+                            <h3><?php echo htmlspecialchars($opportunity['title']); ?></h3>
+                            <p><?php echo htmlspecialchars(substr($opportunity['description'], 0, 100)) . '...'; ?></p>
+                            <p><strong>Date:</strong> <?php echo htmlspecialchars($opportunity['date']); ?></p>
+                            <p><strong>Time:</strong> <?php echo htmlspecialchars($opportunity['time']); ?></p>
+                            <p><strong>Location:</strong> <?php echo htmlspecialchars($opportunity['location']); ?></p>
+                            <a href="opportunity-details.php?id=<?php echo $opportunity['id']; ?>" class="btn">Learn More</a>
+                        </div>
+                    </div>
+                <?php endwhile; ?>
             </div>
-        </section>
-    </main>
+        </main>
+    </div>
 
     <footer>
-        <p>&copy; BetterWorld</p>
+        <p>&copy; 2023 BetterWorld. All rights reserved.</p>
     </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>

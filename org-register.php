@@ -1,62 +1,60 @@
+<?php
+session_start();
+if (isset($_SESSION['org_id'])) {
+    header("Location: org-profile.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register Your Organization - BetterWorld</title>
+    <title>Register Organization - BetterWorld</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
 </head>
 <body>
-    <nav>
-        <div class="navbar">
-            <div class="logo">
-                <a href="index.php">BetterWorld</a>
-            </div>
-            <div class="nav-links">
-                <ul class="menu">
-                    <li><a href="index.php">Home</a></li>
-                    <li><a href="opportunities.php">Volunteer Opportunities</a></li>
-                    <li><a href="about.php">About Us</a></li>
-                    <li><a href="contact.php">Contact</a></li>
-                    <li><a href="login.php">Login</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <?php include 'nav.php'; ?>
 
-    <main>
-        <section class="org-register-section">
-            <h1>Register Your Organization</h1>
-            <form class="org-register-form" action="org-register-process.php" method="POST">
+    <div class="content-wrapper">
+        <main class="container">
+            <h1>Register Organization</h1>
+            <form id="org-register-form" action="process-org-register.php" method="POST" enctype="multipart/form-data">
                 <div>
-                    <label for="org-name">Organization Name:</label>
-                    <input type="text" id="org-name" name="org-name" required>
+                    <label for="name">Organization Name:</label>
+                    <input type="text" id="name" name="name" required>
                 </div>
                 <div>
-                    <label for="org-email">Email:</label>
-                    <input type="email" id="org-email" name="org-email" required>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
                 </div>
                 <div>
-                    <label for="org-password">Password:</label>
-                    <input type="password" id="org-password" name="org-password" required>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
                 </div>
                 <div>
-                    <label for="org-confirm-password">Confirm Password:</label>
-                    <input type="password" id="org-confirm-password" name="org-confirm-password" required>
+                    <label for="confirm-password">Confirm Password:</label>
+                    <input type="password" id="confirm-password" name="confirm-password" required>
                 </div>
                 <div>
-                    <label for="org-description">Organization Description:</label>
-                    <textarea id="org-description" name="org-description" required></textarea>
+                    <label for="description">Organization Description:</label>
+                    <textarea id="description" name="description" required></textarea>
+                </div>
+                <div>
+                    <label for="logo">Organization Logo:</label>
+                    <input type="file" id="logo" name="logo" accept="image/*">
                 </div>
                 <button type="submit" class="btn">Register Organization</button>
             </form>
-            <p>Already have an account? <a href="org-login.php">Login</a></p>
-        </section>
-    </main>
+            <p>Already have an organization account? <a href="org-login.php">Login here</a></p>
+            <p>Are you a volunteer? <a href="register.php">Register as a volunteer</a></p>
+        </main>
+    </div>
 
     <footer>
-        <p>&copy; BetterWorld. All rights reserved.</p>
+        <p>&copy; 2023 BetterWorld. All rights reserved.</p>
     </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>

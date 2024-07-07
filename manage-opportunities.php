@@ -1,3 +1,27 @@
+<?php
+session_start();
+require_once 'db_connection.php';
+
+if (!isset($_SESSION['org_id'])) {
+    header("Location: org-login.php");
+    exit();
+}
+
+$org_id = $_SESSION['org_id'];
+
+// Fetch active opportunities
+$stmt = $conn->prepare("SELECT * FROM opportunities WHERE organization_id = ? AND status = 'active' ORDER BY date DESC");
+$stmt->bind_param("i", $org_id);
+$stmt->execute();
+$active_opportunities = $stmt->get_result();
+
+// Fetch archived opportunities
+$stmt = $conn->prepare("SELECT * FROM opportunities WHERE organization_id = ? AND status = 'archived' ORDER BY date DESC");
+$stmt->bind_param("i", $org_id);
+$stmt->execute();
+$archived_opportunities = $stmt->get_result();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,71 +29,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Opportunities - BetterWorld</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
 </head>
 <body>
-    <nav>
-        <div class="navbar">
-            <div class="logo">
-                <a href="org-home.php">BetterWorld Org Portal</a>
-            </div>
-            <div class="nav-links">
-                <ul class="menu">
-                    <li><a href="org-home.php">Home</a></li>
-                    <li><a href="create-opportunity.php">Create Opportunity</a></li>
-                    <li><a href="manage-opportunities.php">Manage Opportunities</a></li>
-                    <li><a href="manage-applications.php">Manage Applications</a></li>
-                    <li><a href="org-profile.php">Organization Profile</a></li>
-                    <li><a href="org-login.php">Logout</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <?php include 'org-nav.php'; ?>
 
-    <main>
-        <section class="manage-opportunities-section">
-            <h1>Manage Volunteer Opportunities</h1>
+    <div class="content-wrapper">
+        <main class="container">
+            <h1>Manage Opportunities</h1>
+            
+            <div class="opportunity-actions">
+                <a href="create-opportunity.php" class="btn btn-primary">Create New Opportunity</a>
+            </div>
+
+            <h2>Active Opportunities</h2>
             <div class="opportunity-list">
-                <!-- Dynamically populate volunteer opportunities here -->
-                <?php
-                // Retrieve opportunities from the database
-                $servername = "localhost";
-                $username = "root";
-                $password = "";
-                $dbname = "betterworld";
-
-                $conn = new mysqli($servername, $username, $password, $dbname);
-                if ($conn->connect_error) {
-                    die("Connection failed: " . $conn->connect_error);
-                }
-
-                $sql = "SELECT * FROM opportunities";
-                $result = $conn->query($sql);
-
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        echo '<div class="opportunity-item">';
-                        echo '<h3>' . $row['title'] . '</h3>';
-                        echo '<p>Date: ' . $row['date'] . '</p>';
-                        echo '<p>Location: ' . $row['location'] . '</p>';
-                        echo '<div class="actions">';
-                        echo '<a href="edit-opportunity.php?id=' . $row['id'] . '" class="btn">Edit</a>';
-                        echo '<a href="delete-opportunity.php?id=' . $row['id'] . '" class="btn">Delete</a>';
-                        echo '</div>';
-                        echo '</div>';
-                    }
-                } else {
-                    echo '<p>No opportunities found.</p>';
-                }
-
-                $conn->close();
-                ?>
+                <?php while ($opportunity = $active_opportunities->fetch_assoc()): ?>
+                    <div class="opportunity-card">
+                        <h3><?php echo htmlspecialchars($opportunity['title']); ?></h3>
+                        <p><strong>Date:</strong> <?php echo htmlspecialchars($opportunity['date']); ?></p>
+                        <p><strong>Location:</strong> <?php echo htmlspecialchars($opportunity['location']); ?></p>
+                        <div class="opportunity-actions">
+                            <a href="edit-opportunity.php?id=<?php echo $opportunity['id']; ?>" class="btn btn-secondary">Edit</a>
+                            <a href="view-applications.php?id=<?php echo $opportunity['id']; ?>" class="btn btn-info">View Applications</a>
+                            <a href="archive-opportunity.php?id=<?php echo $opportunity['id']; ?>" class="btn btn-warning">Archive</a>
+                            <a href="delete-opportunity.php?id=<?php echo $opportunity['id']; ?>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this opportunity?');">Delete</a>
+                        </div>
+                    </div>
+                <?php endwhile; ?>
             </div>
-        </section>
-    </main>
+
+            <h2>Archived Opportunities</h2>
+            <div class="opportunity-list">
+                <?php while ($opportunity = $archived_opportunities->fetch_assoc()): ?>
+                    <div class="opportunity-card archived">
+                        <h3><?php echo htmlspecialchars($opportunity['title']); ?></h3>
+                        <p><strong>Date:</strong> <?php echo htmlspecialchars($opportunity['date']); ?></p>
+                        <p><strong>Location:</strong> <?php echo htmlspecialchars($opportunity['location']); ?></p>
+                        <div class="opportunity-actions">
+                            <a href="unarchive-opportunity.php?id=<?php echo $opportunity['id']; ?>" class="btn btn-success">Unarchive</a>
+                            <a href="delete-opportunity.php?id=<?php echo $opportunity['id']; ?>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this opportunity?');">Delete</a>
+                        </div>
+                    </div>
+                <?php endwhile; ?>
+            </div>
+        </main>
+    </div>
 
     <footer>
-        <p>&copy; BetterWorld</p>
+        <p>&copy; 2023 BetterWorld. All rights reserved.</p>
     </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>

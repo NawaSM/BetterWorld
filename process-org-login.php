@@ -12,8 +12,8 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$email = $_POST['org-email'];
-$password = $_POST['org-password'];
+$email = $_POST['email'];
+$password = $_POST['password'];
 
 $stmt = $conn->prepare("SELECT * FROM organizations WHERE email = ?");
 $stmt->bind_param("s", $email);

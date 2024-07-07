@@ -1,75 +1,74 @@
+<?php
+session_start();
+require_once 'db_connection.php';
+
+if (!isset($_GET['id'])) {
+    header("Location: opportunities.php");
+    exit();
+}
+
+$id = $_GET['id'];
+$stmt = $conn->prepare("SELECT o.*, org.name as org_name, org.email as org_email 
+                        FROM opportunities o 
+                        JOIN organizations org ON o.organization_id = org.id 
+                        WHERE o.id = ?");
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$result = $stmt->get_result();
+$opportunity = $result->fetch_assoc();
+
+if (!$opportunity) {
+    header("Location: opportunities.php");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Opportunity Details - BetterWorld</title>
+    <title><?php echo htmlspecialchars($opportunity['title']); ?> - BetterWorld</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
 </head>
 <body>
-    <nav>
-        <div class="navbar">
-            <div class="logo">
-                <a href="index.html">BetterWorld</a>
+    <?php include 'nav.php'; ?>
+
+    <div class="content-wrapper">
+        <main class="container">
+            <div class="opportunity-details">
+                <h1><?php echo htmlspecialchars($opportunity['title']); ?></h1>
+                
+                <?php if ($opportunity['image']): ?>
+                    <img src="<?php echo htmlspecialchars($opportunity['image']); ?>" alt="<?php echo htmlspecialchars($opportunity['title']); ?>" class="opportunity-image">
+                <?php endif; ?>
+                
+                <div class="opportunity-info">
+                    <p><strong>Description:</strong> <?php echo nl2br(htmlspecialchars($opportunity['description'])); ?></p>
+                    <p><strong>Date:</strong> <?php echo htmlspecialchars($opportunity['date']); ?></p>
+                    <p><strong>Time:</strong> <?php echo htmlspecialchars($opportunity['time']); ?></p>
+                    <p><strong>Location:</strong> <?php echo htmlspecialchars($opportunity['location']); ?></p>
+                </div>
+                
+                <div class="organization-info">
+                    <h2>Posted by:</h2>
+                    <p><strong>Organization:</strong> <?php echo htmlspecialchars($opportunity['org_name']); ?></p>
+                    <p><strong>Contact Email:</strong> <?php echo htmlspecialchars($opportunity['org_email']); ?></p>
+                </div>
+                
+                <?php if (isset($_SESSION['user_id'])): ?>
+                    <a href="apply-opportunity.php?id=<?php echo $opportunity['id']; ?>" class="btn btn-primary">Apply Now</a>
+                <?php else: ?>
+                    <p>Please <a href="login.php">log in</a> to apply for this opportunity.</p>
+                <?php endif; ?>
             </div>
-            <div class="nav-links">
-                <input type="checkbox" id="checkbox_toggle" />
-                <label for="checkbox_toggle" class="hamburger">&#9776;</label>
-                <ul class="menu">
-                    <li><a href="index.php">Home</a></li>
-                    <li><a href="opportunities.php">Volunteer Opportunities</a></li>
-                    <li><a href="profile.html">My Profile</a></li>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                    <li><a href="login.php">Logout</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <main>
-        <section class="opportunity-details">
-            <?php
-            // Retrieve opportunity details from the database based on the ID
-            $servername = "localhost";
-            $username = "your_username";
-            $password = "your_password";
-            $dbname = "your_database";
-
-            $conn = new mysqli($servername, $username, $password, $dbname);
-            if ($conn->connect_error) {
-                die("Connection failed: " . $conn->connect_error);
-            }
-
-            $opportunityId = $_GET['id'];
-
-            $sql = "SELECT * FROM opportunities WHERE id = $opportunityId";
-            $result = $conn->query($sql);
-
-            if ($result->num_rows > 0) {
-                $row = $result->fetch_assoc();
-                echo '<h1>' . $row['title'] . '</h1>';
-                echo '<img src="' . $row['image'] . '" alt="' . $row['title'] . '">';
-                echo '<p>' . $row['description'] . '</p>';
-                echo '<h2>Details</h2>';
-                echo '<ul>';
-                echo '<li><strong>Date:</strong> ' . $row['date'] . '</li>';
-                echo '<li><strong>Time:</strong> ' . $row['time'] . '</li>';
-                echo '<li><strong>Location:</strong> ' . $row['location'] . '</li>';
-                echo '</ul>';
-                echo '<a href="#" class="btn">Apply Now</a>';
-            } else {
-                echo '<p>Opportunity not found.</p>';
-            }
-
-            $conn->close();
-            ?>
-        </section>
-    </main>
+        </main>
+    </div>
 
     <footer>
-        <p>&copy; BetterWorld</p>
+        <p>&copy; 2023 BetterWorld. All rights reserved.</p>
     </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>

@@ -1,7 +1,12 @@
 <?php
 session_start();
 
-// Process the form submission and insert the opportunity into the database
+// Check if the organization is logged in
+if (!isset($_SESSION['org_id'])) {
+    header("Location: org-login.php");
+    exit();
+}
+
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -12,6 +17,8 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+$opportunityId = $_POST['opportunity-id'];
+$orgId = $_SESSION['org_id'];
 $title = $_POST['opportunity-title'];
 $description = $_POST['opportunity-description'];
 $date = $_POST['opportunity-date'];
@@ -24,24 +31,17 @@ if (isset($_FILES['opportunity-image']) && $_FILES['opportunity-image']['error']
     $image = null;
 }
 
-// Get the organization ID from the session
-if (isset($_SESSION['org_id'])) {
-    $organizationId = $_SESSION['org_id'];
+// Update the opportunity in the database
+$stmt = $conn->prepare("UPDATE opportunities SET title = ?, description = ?, date = ?, location = ?, image = ? WHERE id = ? AND organization_id = ?");
+$stmt->bind_param("sssssii", $title, $description, $date, $location, $image, $opportunityId, $orgId);
 
-    $stmt = $conn->prepare("INSERT INTO opportunities (title, description, date, location, image, organization_id) VALUES (?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssssi", $title, $description, $date, $location, $image, $organizationId);
-
-    if ($stmt->execute()) {
-        header("Location: manage-opportunities.php");
-        exit();
-    } else {
-        echo "Error: " . $stmt->error;
-    }
-
-    $stmt->close();
+if ($stmt->execute()) {
+    header("Location: manage-opportunities.php");
+    exit();
 } else {
-    echo "Organization not logged in.";
+    echo "Error updating opportunity: " . $stmt->error;
 }
 
+$stmt->close();
 $conn->close();
 ?>
