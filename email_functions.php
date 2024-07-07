@@ -1,20 +1,14 @@
-
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
+loadEnv();
 
-if (class_exists('Brevo\Client\Configuration')) {
-    echo "Brevo SDK is properly loaded.";
-} else {
-    echo "Brevo SDK is not loaded correctly.";
-}
-
-use Brevo\Client\Api\TransactionalEmailsApi;
 use Brevo\Client\Configuration;
+use Brevo\Client\Api\TransactionalEmailsApi;
 use Brevo\Client\Model\SendSmtpEmail;
 use GuzzleHttp\Client;
 
 function sendEmail($to, $subject, $content) {
-    $config = Configuration::getDefaultConfiguration()->setApiKey('api-key', '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');
+    $config = Configuration::getDefaultConfiguration()->setApiKey('api-key', getenv('SENDINBLUE_API_KEY'));
 
     $apiInstance = new TransactionalEmailsApi(
         new Client(),

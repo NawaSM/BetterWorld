@@ -1,5 +1,7 @@
 <?php
 session_start();
+require_once __DIR__ . '/env_loader.php';
+loadEnv();
 
 // Process the login form submission
 $servername = "localhost";

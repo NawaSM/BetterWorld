@@ -1,5 +1,7 @@
 <?php
 require_once 'email_functions.php';
+require_once __DIR__ . '/env_loader.php';
+loadEnv();
 // Process the user registration form submission
 $servername = "localhost";
 $username = "root";

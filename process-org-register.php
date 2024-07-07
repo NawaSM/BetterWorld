@@ -1,5 +1,7 @@
 <?php
 require_once 'email_functions.php';
+require_once __DIR__ . '/env_loader.php';
+loadEnv();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 

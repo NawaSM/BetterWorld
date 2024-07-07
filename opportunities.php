@@ -1,6 +1,8 @@
 <?php
 session_start();
 require_once 'db_connection.php';
+require_once __DIR__ . '/env_loader.php';
+loadEnv();
 
 $search = isset($_GET['search']) ? $_GET['search'] : '';
 $sort = isset($_GET['sort']) ? $_GET['sort'] : 'date';

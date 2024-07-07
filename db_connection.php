@@ -1,17 +1,13 @@
 <?php
-$servername = "localhost";
-$username = "root";  
-$password = "";      
-$dbname = "betterworld";
+require_once __DIR__ . '/env_loader.php';
+loadEnv();
 
-// Create connection
+$servername = getenv('DB_HOST');
+$username = getenv('DB_USER');
+$password = getenv('DB_PASS');
+$dbname = getenv('DB_NAME');
+
 $conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-
-// Set charset to ensure proper handling of special characters
-$conn->set_charset("utf8mb4");
-?>
