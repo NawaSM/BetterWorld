@@ -18,7 +18,8 @@
             <h2>Our Mission</h2>
             <p>Our mission is to make volunteering accessible and rewarding for everyone. We strive to create a world where individuals can easily find and contribute to causes they care about, making a tangible impact on society.</p>
             
-            <h2>Our Team</h2>
+            <h2>One-man Team</h2>
+            <p>John Doe</p>
             <div class="team-members">
                 <!-- Add team member information here -->
             </div>

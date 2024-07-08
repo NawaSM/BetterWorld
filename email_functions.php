@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/env_loader.php';
 require_once(__DIR__ . '/vendor/autoload.php');
 loadEnv();
 

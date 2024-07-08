@@ -1,42 +1,39 @@
 <?php
 session_start();
 require_once 'db_connection.php';
-require_once __DIR__ . '/env_loader.php';
-loadEnv();
 
 if (!isset($_SESSION['org_id']) || !isset($_GET['id'])) {
     header("Location: manage-opportunities.php");
     exit();
 }
 
-$org_id = $_SESSION['org_id'];
 $opportunity_id = $_GET['id'];
+$org_id = $_SESSION['org_id'];
 
-// First, check if the opportunity belongs to the logged-in organization
-$check_stmt = $conn->prepare("SELECT id FROM opportunities WHERE id = ? AND organization_id = ?");
-$check_stmt->bind_param("ii", $opportunity_id, $org_id);
-$check_stmt->execute();
-$result = $check_stmt->get_result();
+// Start a transaction
+$conn->begin_transaction();
 
-if ($result->num_rows === 0) {
-    $_SESSION['error'] = "You don't have permission to delete this opportunity.";
-    header("Location: manage-opportunities.php");
-    exit();
+try {
+    // First, delete all applications for this opportunity
+    $stmt = $conn->prepare("DELETE FROM applications WHERE opportunity_id = ?");
+    $stmt->bind_param("i", $opportunity_id);
+    $stmt->execute();
+    $stmt->close();
+
+    // Then, delete the opportunity
+    $stmt = $conn->prepare("DELETE FROM opportunities WHERE id = ? AND organization_id = ?");
+    $stmt->bind_param("ii", $opportunity_id, $org_id);
+    $stmt->execute();
+    $stmt->close();
+
+    $conn->commit();
+
+    $_SESSION['success_message'] = "Opportunity and related applications deleted successfully.";
+} catch (Exception $e) {
+    // An error occurred, rollback the transaction
+    $conn->rollback();
+    $_SESSION['error_message'] = "Error deleting opportunity: " . $e->getMessage();
 }
-
-// If the opportunity belongs to the organization, proceed with deletion
-$delete_stmt = $conn->prepare("DELETE FROM opportunities WHERE id = ?");
-$delete_stmt->bind_param("i", $opportunity_id);
-
-if ($delete_stmt->execute()) {
-    $_SESSION['success'] = "Opportunity deleted successfully.";
-} else {
-    $_SESSION['error'] = "Error deleting opportunity: " . $conn->error;
-}
-
-$check_stmt->close();
-$delete_stmt->close();
-$conn->close();
 
 header("Location: manage-opportunities.php");
 exit();
